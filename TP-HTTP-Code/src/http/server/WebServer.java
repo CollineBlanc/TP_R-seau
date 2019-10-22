@@ -269,12 +269,19 @@ public class WebServer {
 		String body = "";
 		String resGET="Adder.html";
 		File fileName;
-        if (str != null && !str.equals("")){
+		// Get the url
+        if (str != null && !str.equals("")) {
           str = in.readLine();
-	  String[] parts = str.split(" ");
-	  method = parts[0];
-	  resource = parts[1];
-	  versionHttp = parts[2]; 
+          System.out.println("Method :");
+			System.out.println(str);
+          if (str != null) {
+			  String[] parts = str.split(" ");
+			  if (parts.length > 0) {
+				  method = parts[0];
+				  resource = parts[1];
+				  versionHttp = parts[2];
+			  }
+		  }
 	}
 	
 	// Récupérer le header
@@ -282,15 +289,42 @@ public class WebServer {
 		str = in.readLine();
 		header = header + str + "\n" ;
 	}
+ 	System.out.println("Le header :");
+  	System.out.println(header);
 
+  	System.out.println('1');
+      System.out.println(str);
+  	str = in.readLine();
+  	body += str;
+  System.out.println('1');
+          System.out.println('2');
+    str = in.readLine();
+          System.out.println(str);
+    body += str;
+          System.out.println('2');
+          System.out.println('3');
+      str = in.readLine();
+          System.out.println(str);
+      body += str;
+          System.out.println('3');
+          System.out.println('4');
+      str = in.readLine();
+          System.out.println(str);
+      body += str;
+          System.out.println('4');
 	// Récupérer le body
+		  /*
 	while(str != null && !str.equals("")){
-		str = in.readLine();
 		body += str;
+		str = in.readLine();
 	}
+	*/
+	System.out.println("Body :");
+		  System.out.println(body);
 
 	 switch(method){
 		case "GET":
+			System.out.println("Dans le GET");
 			status = findStatus(resource);
 			response = versionHttp +" " + status + "\n\n";	
 			//System.out.println("RESPONSE : " + response);
@@ -302,14 +336,22 @@ public class WebServer {
 			OutputStream out2 = remote.getOutputStream();
 			out2.write(fileData, 0, fileLength);
 			out2.flush();
+			break;
 		case "HEAD":
+			System.out.println("Dans le HEAD");
 			response = versionHttp + " " + status + "\n" + header;
 			out.println(response);
 			out.flush();
-
+			break;
 		case "PUT":
-
-		case "POST":		
+			System.out.println("Dans le PUT");
+			break;
+		case "POST":
+			System.out.println("Dans le POST");
+			System.out.println("*****");
+			System.out.println(body);
+			System.out.println("*****");
+			break;
 	  } 	
 
         /*// Send the headers
